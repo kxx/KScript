@@ -1,0 +1,12 @@
+{
+  "name": "etax-helper",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "volta": {
+    "extends": "../../package.json"
+  }
+}
