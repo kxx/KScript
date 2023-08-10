@@ -10,7 +10,7 @@ importers:
     devDependencies:
       '@element-plus/icons-vue':
         specifier: ^2.0.1
-        version: 2.1.0(vue@3.3.4)
+        version: 2.0.1(vue@3.3.4)
       '@vitejs/plugin-vue':
         specifier: ^4.2.3
         version: 4.2.3(vite@4.3.9)(vue@3.3.4)
@@ -20,9 +20,6 @@ importers:
       element-plus:
         specifier: ^2.3.7
         version: 2.3.7(vue@3.3.4)
-      jquery:
-        specifier: ^3.6.3
-        version: 3.6.3
       vite:
         specifier: ^4.3.9
         version: 4.3.9
@@ -34,30 +31,16 @@ importers:
         version: 3.3.4
 
   packages/etax-helper:
-    devDependencies:
-      '@vitejs/plugin-vue':
-        specifier: ^4.2.3
-        version: 4.2.3(vite@4.3.9)(vue@3.3.4)
-      axios:
-        specifier: ^1.4.0
-        version: 1.4.0
-      element-plus:
-        specifier: ^2.3.7
-        version: 2.3.7(vue@3.3.4)
+    dependencies:
       jquery:
         specifier: ^3.6.3
         version: 3.6.3
-      vite:
-        specifier: ^4.3.9
-        version: 4.3.9
-      vite-plugin-monkey:
-        specifier: ^2.12.0
-        version: 2.12.0(vite@4.3.9)
-      vue:
-        specifier: ^3.3.4
-        version: 3.3.4
 
-  packages/showdoc-helper: {}
+  packages/showdoc-helper:
+    dependencies:
+      jquery:
+        specifier: ^3.6.3
+        version: 3.6.3
 
 packages:
 
@@ -91,6 +74,14 @@ packages:
   /@ctrl/tinycolor@3.6.0:
     resolution: {integrity: sha512-/Z3l6pXthq0JvMYdUFyX9j0MaCltlIn6mfh9jLyQwg5aPKxkyNa0PTHtU1AlFXLNk55ZuAeJRcpvq+tmLfKmaQ==}
     engines: {node: '>=10'}
+    dev: true
+
+  /@element-plus/icons-vue@2.0.1(vue@3.3.4):
+    resolution: {integrity: sha512-a1N6IXw5AZx6JZQDoMBG9E1Pes1BogGTpL192SeI/piMdpEEcm4cn+MkDxhAvA9SuF1dFbdAU54EoS0xKQhjwg==}
+    peerDependencies:
+      vue: ^3.2.0
+    dependencies:
+      vue: 3.3.4
     dev: true
 
   /@element-plus/icons-vue@2.1.0(vue@3.3.4):
@@ -686,7 +677,7 @@ packages:
 
   /jquery@3.6.3:
     resolution: {integrity: sha512-bZ5Sy3YzKo9Fyc8wH2iIQK4JImJ6R0GWI9kL1/k7Z91ZBNgkRXE6U0JfHIizZbort8ZunhSI3jw9I6253ahKfg==}
-    dev: true
+    dev: false
 
   /lodash-es@4.17.21:
     resolution: {integrity: sha512-mKnC+QJ9pWVzv+C4/U3rRsHapFfHvQFoFB92e52xeyGMcX6/OlIl78je1u8vePzYZSkkogMPJ2yjxxsb89cxyw==}

@@ -2,14 +2,14 @@
   "name": "k-script",
   "private": true,
   "scripts": {
-    "etax-dev": "pnpm -r --filter=./packages/etax-helper dev",
-    "showdoc-dev": "pnpm -r --filter=./packages/showdoc-helper dev"
+    "etax-helper:dev": "pnpm -r --filter=./packages/etax-helper dev",
+    "showdoc-helper:dev": "pnpm -r --filter=./packages/showdoc-helper dev",
+    "build": "pnpm -r --filter=./packages/* build"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.2.3",
     "@element-plus/icons-vue":"^2.0.1",
     "axios": "^1.4.0",
-    "jquery": "^3.6.3",
     "element-plus": "^2.3.7",
     "vue": "^3.3.4",
     "vite": "^4.3.9",
