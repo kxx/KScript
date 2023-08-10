@@ -28,9 +28,12 @@ export default defineConfig({
       build: {
         externalGlobals: {
           vue: cdn.bootcdn('Vue', 'vue.global.min.js').concat(
-            await util.fn2dataUrl(() => {
-              window.Vue = Vue; // work with element-plus
-            })),
+            async ()=>{
+              await util.fn2dataUrl(() => {
+                window.Vue = Vue; // work with element-plus
+              })
+            }
+            ),
           jquery: cdn.bootcdn('$', 'jquery.min.js'),
           axios: cdn.bootcdn('axios', 'axios.min.js'),
           'element-plus': cdn.bootcdn('ElementPlus', 'index.full.min.js')

@@ -1,8 +1,13 @@
 {
   "name": "k-script",
   "private": true,
-  "dependencies": {
+  "scripts": {
+    "etax-dev": "pnpm -r --filter=./packages/etax-helper dev",
+    "showdoc-dev": "pnpm -r --filter=./packages/showdoc-helper dev"
+  },
+  "devDependencies": {
     "@vitejs/plugin-vue": "^4.2.3",
+    "@element-plus/icons-vue":"^2.0.1",
     "axios": "^1.4.0",
     "jquery": "^3.6.3",
     "element-plus": "^2.3.7",
@@ -14,6 +19,6 @@
     "node": ">=16.0.0"
   },
   "volta": {
-    "node": "20.3.0"
+    "node": "16.17.0"
   }
 }
