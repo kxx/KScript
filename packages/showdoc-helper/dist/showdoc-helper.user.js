@@ -7,11 +7,11 @@
 // @license      MIT
 // @icon         https://img.alicdn.com/imgextra/i1/O1CN01JDQCi21Dc8EfbRwvF_!!6000000000236-73-tps-64-64.ico
 // @match        https://apidoc.chinackts.com/*
-// @require      https://cdn.bootcdn.net/ajax/libs/vue/3.2.47/vue.global.min.js
+// @require      https://cdn.jsdelivr.net/npm/vue@3.2.47/dist/vue.global.prod.js
 // @require      data:application/javascript,window.Vue%3DVue%3B
 // @require      https://cdn.bootcdn.net/ajax/libs/jquery/3.6.3/jquery.min.js
 // @require      https://cdn.bootcdn.net/ajax/libs/axios/1.3.4/axios.min.js
-// @require      https://cdn.bootcdn.net/ajax/libs/element-plus/2.2.32/index.full.min.js
+// @require      https://cdn.jsdelivr.net/npm/element-plus@2.2.32/dist/index.full.min.js
 // @resource     element-plus/dist/index.css  https://cdn.bootcdn.net/ajax/libs/element-plus/2.2.32/index.min.css
 // @grant        GM_getResourceText
 // ==/UserScript==

@@ -26,14 +26,14 @@ export default defineConfig({
       },
       build: {
         externalGlobals: {
-          vue: cdn.bootcdn('Vue', 'vue.global.min.js').concat(
+          vue: cdn.jsdelivr('Vue', 'dist/vue.global.prod.js').concat(
             await util.fn2dataUrl(() => {
               window.Vue = Vue; // work with element-plus
-            })
-            ),
+            }),
+          ),
           jquery: cdn.bootcdn('$', 'jquery.min.js'),
           axios: cdn.bootcdn('axios', 'axios.min.js'),
-          'element-plus': cdn.bootcdn('ElementPlus', 'index.full.min.js')
+          'element-plus': cdn.jsdelivr('ElementPlus', 'dist/index.full.min.js')
         },
         externalResource: {
           'element-plus/dist/index.css': cdn.bootcdn('', 'index.min.css'),

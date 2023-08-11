@@ -15,10 +15,7 @@
         </ElTable>
 
         <ElDialog v-model="dialogVisible" :title="viewTitle" :close-on-click-modal="false" width="35%" class="viewDialog">
-            <div v-loading="viewLoaing">
-                <span>{{ viewContent }}</span>
-            </div>
-
+            <span>{{ viewContent }}</span>
         </ElDialog>
     </div>
 </template>
@@ -38,7 +35,6 @@ const dialogVisible = ref(false)
 
 const viewTitle = ref('')
 const viewContent = ref('')
-const viewLoaing = ref(true)
 const dzfpSsotoken = ref('')
 
 onMounted(() => {

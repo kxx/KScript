@@ -9,17 +9,17 @@
 // @match        https://dppt.jiangsu.chinatax.gov.cn:8443/*
 // @match        https://dppt.qingdao.chinatax.gov.cn:8443/*
 // @match        https://dppt.shanghai.chinatax.gov.cn:8443/*
-// @require      https://cdn.bootcdn.net/ajax/libs/vue/3.2.47/vue.global.min.js
+// @require      https://cdn.jsdelivr.net/npm/vue@3.2.47/dist/vue.global.prod.js
 // @require      data:application/javascript,window.Vue%3DVue%3B
 // @require      https://cdn.bootcdn.net/ajax/libs/jquery/3.6.3/jquery.min.js
-// @require      https://cdn.bootcdn.net/ajax/libs/element-plus/2.2.32/index.full.min.js
+// @require      https://cdn.jsdelivr.net/npm/element-plus@2.2.32/dist/index.full.min.js
 // @resource     element-plus/dist/index.css  https://cdn.bootcdn.net/ajax/libs/element-plus/2.2.32/index.min.css
 // @connect      skynjweb.com
 // @grant        GM_getResourceText
 // @grant        GM_xmlhttpRequest
 // ==/UserScript==
 
-(a=>{const e=document.createElement("style");e.dataset.source="vite-plugin-monkey",e.innerText=a,document.head.appendChild(e)})(".viewDialog span[data-v-3d1453fe]{word-break:normal;width:auto;display:block;white-space:pre-wrap;word-wrap:break-word;overflow:hidden}");
+(a=>{const e=document.createElement("style");e.dataset.source="vite-plugin-monkey",e.innerText=a,document.head.appendChild(e)})(".viewDialog span[data-v-64616d0c]{word-break:normal;width:auto;display:block;white-space:pre-wrap;word-wrap:break-word;overflow:hidden}");
 
 (function(vue, jquery, elementPlus) {
   "use strict";
@@ -110,7 +110,7 @@
     }
   }
   const store = new Store();
-  const NetWork_vue_vue_type_style_index_0_scoped_3d1453fe_lang = "";
+  const NetWork_vue_vue_type_style_index_0_scoped_64616d0c_lang = "";
   const _export_sfc = (sfc, props) => {
     const target = sfc.__vccOpts || sfc;
     for (const [key, val] of props) {
@@ -126,7 +126,6 @@
       const dialogVisible = vue.ref(false);
       const viewTitle = vue.ref("");
       const viewContent = vue.ref("");
-      const viewLoaing = vue.ref(true);
       const dzfpSsotoken = vue.ref("");
       vue.onMounted(() => {
         dzfpSsotoken.value = store.getCookie("dzfp-ssotoken");
@@ -181,7 +180,6 @@
         });
       }
       return (_ctx, _cache) => {
-        const _directive_loading = vue.resolveDirective("loading");
         return vue.openBlock(), vue.createElementBlock("div", null, [
           vue.createVNode(vue.unref(elementPlus.ElTable), {
             ref: "netWorkRef",
@@ -253,11 +251,7 @@
             class: "viewDialog"
           }, {
             default: vue.withCtx(() => [
-              vue.withDirectives((vue.openBlock(), vue.createElementBlock("div", null, [
-                vue.createElementVNode("span", null, vue.toDisplayString(viewContent.value), 1)
-              ])), [
-                [_directive_loading, viewLoaing.value]
-              ])
+              vue.createElementVNode("span", null, vue.toDisplayString(viewContent.value), 1)
             ]),
             _: 1
           }, 8, ["modelValue", "title"])
@@ -265,7 +259,7 @@
       };
     }
   };
-  const NetWork = /* @__PURE__ */ _export_sfc(_sfc_main$2, [["__scopeId", "data-v-3d1453fe"]]);
+  const NetWork = /* @__PURE__ */ _export_sfc(_sfc_main$2, [["__scopeId", "data-v-64616d0c"]]);
   const _hoisted_1 = { style: { "flex": "auto" } };
   const _sfc_main$1 = {
     __name: "Home",
