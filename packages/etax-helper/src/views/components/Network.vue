@@ -1,8 +1,7 @@
 <template>
     <div>
-        <ElTable ref="netWorkRef" :data="props.tableData" highlight-current-row height="90%" style="width: 100%">
+        <ElTable ref="netWorkRef" :data="tableData" highlight-current-row height="400px" style="width: 100%">
             <ElTableColumn type="index" width="50" />
-            <!-- <ElTableColumn prop="date" label="日期" width="80"/> -->
             <ElTableColumn prop="url" label="接口" :formatter="urlFormatter" />
             <ElTableColumn prop="method" label="方法" width="70" />
             <ElTableColumn prop="status" label="状态" width="60" />
@@ -13,6 +12,7 @@
                 </template>
             </ElTableColumn>
         </ElTable>
+        <ElButton class="mt-4" style="margin-top: 6px;width: 100%" @click="handleClear">清空</ElButton>
 
         <ElDialog v-model="dialogVisible" :title="viewTitle" :close-on-click-modal="false" width="35%" class="viewDialog">
             <span>{{ viewContent }}</span>
@@ -21,15 +21,15 @@
 </template>
 
 <script setup>
-import { defineProps, ref, onMounted, toRaw } from "vue";
+import { monkeyWindow } from '$';
+import {ref, onMounted, toRaw, defineExpose } from "vue";
 import 'element-plus/dist/index.css'
 import { ElTable, ElTableColumn, ElButton, ElDialog } from 'element-plus'
-import { showSuccess, showError } from "../utils/notice";
-import store from '../utils/store'
-import { GM_xmlhttpRequest } from '$';
+import supportService from '../service/support-service'
+import { showSuccess, showError } from "../../utils/notice";
+import store from '../../utils/store'
 
-
-const props = defineProps(['tableData'])
+const tableData = ref([])
 
 const dialogVisible = ref(false)
 
@@ -38,22 +38,66 @@ const viewContent = ref('')
 const dzfpSsotoken = ref('')
 
 onMounted(() => {
+    xhrListener()
+
     dzfpSsotoken.value = store.getCookie('dzfp-ssotoken')
 })
+
+//请求监听
+function xhrListener() {
+  monkeyWindow.m_log = monkeyWindow.console.log;
+  monkeyWindow.m_log('开启请求监听');
+
+  const originalXhrOpen = monkeyWindow.XMLHttpRequest.prototype.open;
+
+  monkeyWindow.XMLHttpRequest.prototype.open = function (method, url) {
+    const xhr = this;
+    const originalXhrSend = xhr.send;
+    xhr.send = function (data) {
+      const requestData = {
+        method,
+        url,
+        data,
+        date:new Date().toLocaleTimeString()
+      };
+
+      xhr.addEventListener('load', function () {
+        const responseData = {
+          status: xhr.status,
+          response: xhr.responseText,
+        };
+        insertRequest(Object.assign({},requestData,responseData))
+      });
+
+      originalXhrSend.call(xhr, data);
+    };
+    originalXhrOpen.apply(this, arguments);
+  };
+}
+
+function insertRequest(request) {
+      
+  if (!request || request.url.includes('/v1/report')) return;
+
+  tableData.value.unshift(request);
+
+  // 控制数组长度不超过50
+  if (tableData.value.length > 50) {
+    tableData.value.pop(); // 移除末尾元素
+  }
+}
 
 function urlFormatter(row, column, cellValue, index) {
     return cellValue.split('?')[0];
 }
 
-
 async function viewRequest(row) {
-
+    
     viewTitle.value = '负载'
     viewContent.value = ''
     dialogVisible.value = true
 
     let rowObj = toRaw(row);
-
 
     if (rowObj && rowObj.deData) {
         viewContent.value = rowObj.deData
@@ -65,14 +109,14 @@ async function viewRequest(row) {
         params.token = dzfpSsotoken.value
         params.jmbw = JSON.parse(row.data)['Jmbw']
 
-        const res = await postData('https://skynjweb.com:7443/dppt/ac-api/support/decryptJmbw', params)
-
+        let res = await supportService.decryptJmbw(params);
+    
         const result = JSON.parse(res)
         if (result.code == 0) {
             viewContent.value = result.data.params
             row.deData = result.data.params
         } else {
-            showError(result.msg)
+            showError(result.msg || result.error)
         }
     } else {
         viewContent.value = row.data
@@ -85,20 +129,8 @@ function viewResponse(row) {
     dialogVisible.value = true
 }
 
-function postData(url, data) {
-    return new Promise((resolve, reject) => {
-        GM_xmlhttpRequest({
-            method: 'POST',
-            url,
-            headers: {
-                'Content-Type': 'application/json;charset=UTF-8'
-            },
-            data: JSON.stringify(data),
-            onload(xhr) {
-                resolve(xhr.responseText);
-            }
-        });
-    });
+function handleClear() {
+    tableData.value = []
 }
 
 </script>

@@ -1,4 +1,3 @@
-
 class Result {
     type
     msg

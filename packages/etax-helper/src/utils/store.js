@@ -1,7 +1,6 @@
-
 class Store {
     constructor() {
-        this.prefix = 'etax_hepper_'
+        this.prefix = 'etax_helper_'
     }
 
     getEtax(key=''){
@@ -28,7 +27,7 @@ class Store {
         if(key==null || key == ''){
             return
         }
-        localStorage.removeItem(this.prefix +key,);
+        localStorage.removeItem(this.prefix +key);
     }
 
     getCookies() {

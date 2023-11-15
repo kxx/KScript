@@ -17,10 +17,8 @@ export default defineConfig({
         description: '支持etax参数解密',
         namespace: 'https://github.com/kxx/etax-helper',
         author: "kxx",
-        match: ['https://dppt.guangdong.chinatax.gov.cn:8443/*'
-          , 'https://dppt.jiangsu.chinatax.gov.cn:8443/*'
-          , 'https://dppt.qingdao.chinatax.gov.cn:8443/*'
-          , 'https://dppt.shanghai.chinatax.gov.cn:8443/*'
+        match: ['https://*.chinatax.gov.cn/*'
+          , 'https://*.chinatax.gov.cn:8443/*'
         ],
         connect: ['skynjweb.com'],
       },

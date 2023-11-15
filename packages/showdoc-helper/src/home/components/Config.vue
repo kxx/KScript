@@ -63,6 +63,7 @@ const saveConfig = () => {
   store.setItem('config', toRaw(configForm))
   showSuccess('配置保存成功')
 }
+
 </script>
 
 <style>
