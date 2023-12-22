@@ -207,6 +207,7 @@
       duration: timeout || 3e3
     });
   };
+  const etaxDomain = "etax.jiangsu.chinatax.gov.cn";
   const path = "/";
   const domain = ".chinatax.gov.cn";
   let setDpptCookie = (params) => {
@@ -216,6 +217,15 @@
       setCookieByDocument("security-token-key", "dzfp-ssotoken", "", path, domain, false);
     } catch {
     }
+  };
+  let setEtaxCookie = (params) => {
+    let name = "SESSION";
+    let path2 = "/portal/";
+    if (params.session.includes("TGT-")) {
+      name = "CASTGC";
+      path2 = "/sso/";
+    }
+    setCookieByDocument(name, params.session, "", path2, etaxDomain, false);
   };
   let setCookieByDocument = (name, value, expires, path2, domain2, secure) => {
     var cookieText = encodeURIComponent(name) + "=" + encodeURIComponent(value);
@@ -243,11 +253,13 @@
       const tableData = vue.ref([]);
       const formRef = vue.ref(null);
       const cookieForm = vue.reactive({
+        session: "",
         checkToken: "",
         dzfpToken: "",
         platform: "dta"
       });
       const rules = {
+        session: [{ required: true, message: "session不能为空", trigger: "blur" }],
         checkToken: [{ required: true, message: "checkToken不能为空", trigger: "blur" }],
         dzfpToken: [{ required: true, message: "dzfpToken不能为空", trigger: "blur" }]
       };
@@ -276,8 +288,18 @@
           if (!valid) {
             return;
           }
-          setDpptCookie(vue.toRaw(cookieForm));
-          openPage(cookieForm.platform);
+          switch (cookieForm.platform) {
+            case "home":
+              setEtaxCookie(vue.toRaw(cookieForm));
+              openEtaxPage(cookieForm.platform);
+              break;
+            case "dta":
+            case "bim":
+            case "rim":
+              setDpptCookie(vue.toRaw(cookieForm));
+              openDpptPage(cookieForm.platform);
+              break;
+          }
         });
       }
       const resetForm = () => {
@@ -285,14 +307,25 @@
       };
       async function handleAuth(row, ptdm) {
         const result = JSON.parse(await supportService.getCookie(row.cookieId));
-        if (result.code == 0) {
-          setCookies(result.data);
-          openPage(ptdm);
-        } else {
+        if (result.code == 0)
+          ;
+        else {
           console.log(result.msg || result.error);
         }
       }
-      const openPage = (ptdm) => {
+      const openEtaxPage = (ptdm) => {
+        let url = "https://etax." + areaName.value + ".chinatax.gov.cn";
+        switch (areaName.value) {
+          case "jiangsu":
+            url = url.concat("/portal/index.do");
+            break;
+          default:
+            url = url.concat("/portal/index.do");
+            break;
+        }
+        GM_openInTab(url, { active: true });
+      };
+      const openDpptPage = (ptdm) => {
         let url = "https://dppt." + areaName.value + ".chinatax.gov.cn:8443";
         switch (ptdm) {
           case "dta":
@@ -351,7 +384,7 @@
                     size: "small",
                     text: "",
                     type: "danger",
-                    onClick: vue.withModifiers(($event) => handleAuth(scope.row, "dta"), ["prevent"])
+                    onClick: vue.withModifiers(($event) => handleAuth(scope.row), ["prevent"])
                   }, {
                     default: vue.withCtx(() => [
                       vue.createTextVNode("DTA")
@@ -362,7 +395,7 @@
                     size: "small",
                     text: "",
                     type: "danger",
-                    onClick: vue.withModifiers(($event) => handleAuth(scope.row, "bim"), ["prevent"])
+                    onClick: vue.withModifiers(($event) => handleAuth(scope.row), ["prevent"])
                   }, {
                     default: vue.withCtx(() => [
                       vue.createTextVNode("BIM")
@@ -373,7 +406,7 @@
                     size: "small",
                     text: "",
                     type: "danger",
-                    onClick: vue.withModifiers(($event) => handleAuth(scope.row, "rim"), ["prevent"])
+                    onClick: vue.withModifiers(($event) => handleAuth(scope.row), ["prevent"])
                   }, {
                     default: vue.withCtx(() => [
                       vue.createTextVNode("RIM")
@@ -412,30 +445,45 @@
                 size: "small"
               }, {
                 default: vue.withCtx(() => [
-                  vue.createVNode(vue.unref(elementPlus.ElFormItem), {
+                  cookieForm.platform == "home" ? (vue.openBlock(), vue.createBlock(vue.unref(elementPlus.ElFormItem), {
+                    key: 0,
+                    label: "Session",
+                    prop: "session"
+                  }, {
+                    default: vue.withCtx(() => [
+                      vue.createVNode(vue.unref(elementPlus.ElInput), {
+                        modelValue: cookieForm.session,
+                        "onUpdate:modelValue": _cache[0] || (_cache[0] = ($event) => cookieForm.session = $event)
+                      }, null, 8, ["modelValue"])
+                    ]),
+                    _: 1
+                  })) : vue.createCommentVNode("", true),
+                  cookieForm.platform != "home" ? (vue.openBlock(), vue.createBlock(vue.unref(elementPlus.ElFormItem), {
+                    key: 1,
                     label: "CheckToken",
                     prop: "checkToken"
                   }, {
                     default: vue.withCtx(() => [
                       vue.createVNode(vue.unref(elementPlus.ElInput), {
                         modelValue: cookieForm.checkToken,
-                        "onUpdate:modelValue": _cache[0] || (_cache[0] = ($event) => cookieForm.checkToken = $event)
+                        "onUpdate:modelValue": _cache[1] || (_cache[1] = ($event) => cookieForm.checkToken = $event)
                       }, null, 8, ["modelValue"])
                     ]),
                     _: 1
-                  }),
-                  vue.createVNode(vue.unref(elementPlus.ElFormItem), {
+                  })) : vue.createCommentVNode("", true),
+                  cookieForm.platform != "home" ? (vue.openBlock(), vue.createBlock(vue.unref(elementPlus.ElFormItem), {
+                    key: 2,
                     label: "DzfpToken",
                     prop: "dzfpToken"
                   }, {
                     default: vue.withCtx(() => [
                       vue.createVNode(vue.unref(elementPlus.ElInput), {
                         modelValue: cookieForm.dzfpToken,
-                        "onUpdate:modelValue": _cache[1] || (_cache[1] = ($event) => cookieForm.dzfpToken = $event)
+                        "onUpdate:modelValue": _cache[2] || (_cache[2] = ($event) => cookieForm.dzfpToken = $event)
                       }, null, 8, ["modelValue"])
                     ]),
                     _: 1
-                  }),
+                  })) : vue.createCommentVNode("", true),
                   vue.createVNode(vue.unref(elementPlus.ElFormItem), {
                     label: "Platform",
                     prop: "platform"
@@ -444,9 +492,15 @@
                       vue.createVNode(vue.unref(elementPlus.ElRadioGroup), {
                         "radio-group": "",
                         modelValue: cookieForm.platform,
-                        "onUpdate:modelValue": _cache[2] || (_cache[2] = ($event) => cookieForm.platform = $event)
+                        "onUpdate:modelValue": _cache[3] || (_cache[3] = ($event) => cookieForm.platform = $event)
                       }, {
                         default: vue.withCtx(() => [
+                          vue.createVNode(vue.unref(elementPlus.ElRadio), { label: "home" }, {
+                            default: vue.withCtx(() => [
+                              vue.createTextVNode("主系统")
+                            ]),
+                            _: 1
+                          }),
                           vue.createVNode(vue.unref(elementPlus.ElRadio), { label: "dta" }, {
                             default: vue.withCtx(() => [
                               vue.createTextVNode("税务数字账户")
