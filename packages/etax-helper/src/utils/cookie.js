@@ -1,7 +1,9 @@
 import { GM_cookie } from '$';
 
+const etaxDomain = 'etax.jiangsu.chinatax.gov.cn';
 const path = '/';
 const domain = '.chinatax.gov.cn';
+
 
 let setDpptCookie = (params) => {
   try {
@@ -14,7 +16,13 @@ let setDpptCookie = (params) => {
 }
 
 let setEtaxCookie = (params) => {
-
+  let name = 'SESSION'
+  let path = '/portal/'
+  if(params.session.includes('TGT-')){
+    name = 'CASTGC'
+    path = '/sso/'
+  }
+  setCookieByDocument(name, params.session, '', path, etaxDomain, false)
 }
 
 let setCookieByDocument = (name, value, expires, path, domain, secure) => {
@@ -38,7 +46,7 @@ let setCookieByDocument = (name, value, expires, path, domain, secure) => {
 let setCookiesByGm = (name, value, expires, path, domain, secure) => {
   cookies.forEach((item) => {
     GM_cookie.set({
-      url: "https://www.chinatax.gov.cn/",
+      url: "etax.jiangsu.chinatax.gov.cn",
       name: name,
       value: value,
       domain: domain,
