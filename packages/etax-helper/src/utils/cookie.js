@@ -1,28 +1,34 @@
 import { GM_cookie } from '$';
 
-const etaxDomain = 'etax.jiangsu.chinatax.gov.cn';
-const path = '/';
-const domain = '.chinatax.gov.cn';
+const etaxDomain = 'etax.$area.chinatax.gov.cn';
+const initPath = '/';
+const initDomain = '.chinatax.gov.cn';
 
 
 let setDpptCookie = (params) => {
   try {
-    setCookieByDocument('SSO_SECURITY_CHECK_TOKEN', params.checkToken, '', path, domain, true)
-    setCookieByDocument('dzfp-ssotoken', params.dzfpToken, '', path, domain, true)
-    setCookieByDocument('security-token-key', 'dzfp-ssotoken', '', path, domain, false)
+    setCookieByDocument('SSO_SECURITY_CHECK_TOKEN', params.checkToken, '', initPath, initDomain, true)
+    setCookieByDocument('dzfp-ssotoken', params.dzfpToken, '', initPath, initDomain, true)
+    setCookieByDocument('security-token-key', 'dzfp-ssotoken', '', initPath, initDomain, false)
   } catch {
 
   }
 }
 
 let setEtaxCookie = (params) => {
+  let domain = etaxDomain.replaceAll('$area',params.area)
   let name = 'SESSION'
   let path = '/portal/'
   if(params.session.includes('TGT-')){
     name = 'CASTGC'
     path = '/sso/'
   }
-  setCookieByDocument(name, params.session, '', path, etaxDomain, false)
+  if(params.area === 'shandong'){
+    name = 'tpass_h792a55w35bbht6bbecb9tbea69799ee'
+    path = '/'
+    domain = initDomain
+  }
+  setCookieByDocument(name, params.session, '', path, domain, false)
 }
 
 let setCookieByDocument = (name, value, expires, path, domain, secure) => {

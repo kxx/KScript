@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <ElTable ref="netWorkRef" :data="tableData" highlight-current-row height="400px" style="width: 100%">
+    <div class="table-container">
+        <ElTable ref="netWorkRef" :data="tableData" highlight-current-row height="100%" size="small">
             <ElTableColumn type="index" width="50" />
             <ElTableColumn prop="url" label="接口" :formatter="urlFormatter" />
             <ElTableColumn prop="method" label="方法" width="70" />
@@ -12,7 +12,7 @@
                 </template>
             </ElTableColumn>
         </ElTable>
-        <ElButton class="mt-4" style="margin-top: 6px;width: 100%" @click="handleClear">清空</ElButton>
+        <ElButton class="mt-4" style="margin-top: 6px;" @click="handleClear">清空</ElButton>
 
         <ElDialog v-model="dialogVisible" :title="viewTitle" :close-on-click-modal="false" width="35%" class="viewDialog">
             <span>{{ viewContent }}</span>
@@ -23,7 +23,7 @@
 <script setup>
 import { monkeyWindow } from '$';
 import {ref, onMounted, toRaw, defineExpose } from "vue";
-import 'element-plus/dist/index.css'
+//import 'element-plus/dist/index.css'
 import { ElTable, ElTableColumn, ElButton, ElDialog } from 'element-plus'
 import supportService from '../service/support-service'
 import { showSuccess, showError } from "../../utils/notice";
@@ -136,6 +136,13 @@ function handleClear() {
 </script>
 
 <style scoped>
+
+.table-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    }
+
 .viewDialog span {
     word-break: normal;
     width: auto;
