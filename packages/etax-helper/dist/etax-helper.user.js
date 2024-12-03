@@ -13,16 +13,43 @@
 // @require      https://cdn.jsdelivr.net/npm/element-plus@2.2.32/dist/index.full.min.js
 // @resource     element-plus/dist/index.css  https://cdn.bootcdn.net/ajax/libs/element-plus/2.2.32/index.min.css
 // @connect      skynjweb.com
-// @grant        GM_cookie
+// @grant        GM_addStyle
 // @grant        GM_getResourceText
 // @grant        GM_openInTab
 // @grant        GM_xmlhttpRequest
 // ==/UserScript==
 
-(a=>{const e=document.createElement("style");e.dataset.source="vite-plugin-monkey",e.innerText=a,document.head.appendChild(e)})(".viewDialog span[data-v-bf38f6fe]{word-break:normal;width:auto;display:block;white-space:pre-wrap;word-wrap:break-word;overflow:hidden}");
+(n=>{if(typeof GM_addStyle=="function"){GM_addStyle(n);return}const e=document.createElement("style");e.textContent=n,document.head.append(e)})(` .table-container[data-v-35b354ff] {\r
+display: flex;\r
+flex-direction: column;\r
+height: 100%;
+}\r
 
-(function(vue, jquery, elementPlus) {
-  "use strict";
+.table-container[data-v-27edb2cf] {\r
+    display: flex;\r
+    flex-direction: column;\r
+    height: 100%;
+}
+.viewDialog span[data-v-27edb2cf] {\r
+    word-break: normal;\r
+    width: auto;\r
+    display: block;\r
+    white-space: pre-wrap;\r
+    word-wrap: break-word;\r
+    overflow: hidden;
+}\r
+
+.k-affix[data-v-58210dee] {
+        position: fixed;
+        bottom: 15px;
+        padding-left: 15px;
+        width: 36px;
+        z-index: 9999;
+} `);
+
+(function (vue, jquery, elementPlus) {
+  'use strict';
+
   /*! Element Plus Icons Vue v2.0.6 */
   var export_helper_default = (sfc, props) => {
     let target = sfc.__vccOpts || sfc;
@@ -45,21 +72,6 @@
     return vue.openBlock(), vue.createElementBlock("svg", _hoisted_1205, _hoisted_3204);
   }
   var promotion_default = /* @__PURE__ */ export_helper_default(_sfc_main205, [["render", _sfc_render205], ["__file", "promotion.vue"]]);
-  var _sfc_main226 = {
-    name: "Setting"
-  }, _hoisted_1226 = {
-    viewBox: "0 0 1024 1024",
-    xmlns: "http://www.w3.org/2000/svg"
-  }, _hoisted_2226 = /* @__PURE__ */ vue.createElementVNode("path", {
-    fill: "currentColor",
-    d: "M600.704 64a32 32 0 0 1 30.464 22.208l35.2 109.376c14.784 7.232 28.928 15.36 42.432 24.512l112.384-24.192a32 32 0 0 1 34.432 15.36L944.32 364.8a32 32 0 0 1-4.032 37.504l-77.12 85.12a357.12 357.12 0 0 1 0 49.024l77.12 85.248a32 32 0 0 1 4.032 37.504l-88.704 153.6a32 32 0 0 1-34.432 15.296L708.8 803.904c-13.44 9.088-27.648 17.28-42.368 24.512l-35.264 109.376A32 32 0 0 1 600.704 960H423.296a32 32 0 0 1-30.464-22.208L357.696 828.48a351.616 351.616 0 0 1-42.56-24.64l-112.32 24.256a32 32 0 0 1-34.432-15.36L79.68 659.2a32 32 0 0 1 4.032-37.504l77.12-85.248a357.12 357.12 0 0 1 0-48.896l-77.12-85.248A32 32 0 0 1 79.68 364.8l88.704-153.6a32 32 0 0 1 34.432-15.296l112.32 24.256c13.568-9.152 27.776-17.408 42.56-24.64l35.2-109.312A32 32 0 0 1 423.232 64H600.64zm-23.424 64H446.72l-36.352 113.088-24.512 11.968a294.113 294.113 0 0 0-34.816 20.096l-22.656 15.36-116.224-25.088-65.28 113.152 79.68 88.192-1.92 27.136a293.12 293.12 0 0 0 0 40.192l1.92 27.136-79.808 88.192 65.344 113.152 116.224-25.024 22.656 15.296a294.113 294.113 0 0 0 34.816 20.096l24.512 11.968L446.72 896h130.688l36.48-113.152 24.448-11.904a288.282 288.282 0 0 0 34.752-20.096l22.592-15.296 116.288 25.024 65.28-113.152-79.744-88.192 1.92-27.136a293.12 293.12 0 0 0 0-40.256l-1.92-27.136 79.808-88.128-65.344-113.152-116.288 24.96-22.592-15.232a287.616 287.616 0 0 0-34.752-20.096l-24.448-11.904L577.344 128zM512 320a192 192 0 1 1 0 384 192 192 0 0 1 0-384zm0 64a128 128 0 1 0 0 256 128 128 0 0 0 0-256z"
-  }, null, -1), _hoisted_3225 = [
-    _hoisted_2226
-  ];
-  function _sfc_render226(_ctx, _cache, $props, $setup, $data, $options) {
-    return vue.openBlock(), vue.createElementBlock("svg", _hoisted_1226, _hoisted_3225);
-  }
-  var setting_default = /* @__PURE__ */ export_helper_default(_sfc_main226, [["render", _sfc_render226], ["__file", "setting.vue"]]);
   var _sfc_main250 = {
     name: "Switch"
   }, _hoisted_1250 = {
@@ -76,13 +88,13 @@
   }
   var switch_default = /* @__PURE__ */ export_helper_default(_sfc_main250, [["render", _sfc_render250], ["__file", "switch.vue"]]);
   const cssLoader = (e) => {
-    const t = GM_getResourceText(e), o = document.createElement("style");
-    return o.innerText = t, document.head.append(o), t;
+    const t = GM_getResourceText(e);
+    return GM_addStyle(t), t;
   };
   cssLoader("element-plus/dist/index.css");
-  var monkeyWindow = window;
-  var GM_openInTab = /* @__PURE__ */ (() => monkeyWindow.GM_openInTab)();
-  var GM_xmlhttpRequest = /* @__PURE__ */ (() => monkeyWindow.GM_xmlhttpRequest)();
+  var _GM_openInTab = /* @__PURE__ */ (() => typeof GM_openInTab != "undefined" ? GM_openInTab : void 0)();
+  var _GM_xmlhttpRequest = /* @__PURE__ */ (() => typeof GM_xmlhttpRequest != "undefined" ? GM_xmlhttpRequest : void 0)();
+  var _monkeyWindow = /* @__PURE__ */ (() => window)();
   class Store {
     constructor() {
       this.prefix = "etax_helper_";
@@ -130,7 +142,7 @@
     baseUrl: "https://skynjweb.com:7443/dppt/ac-api/support",
     async getAccount(params) {
       return new Promise((resolve, reject) => {
-        GM_xmlhttpRequest({
+        _GM_xmlhttpRequest({
           method: "POST",
           url: `${this.baseUrl}/getAccount`,
           headers: {
@@ -149,7 +161,7 @@
     },
     async getCookie(params) {
       return new Promise((resolve, reject) => {
-        GM_xmlhttpRequest({
+        _GM_xmlhttpRequest({
           method: "POST",
           url: `${this.baseUrl}/getCookie`,
           headers: {
@@ -168,7 +180,7 @@
     },
     async decryptJmbw(params) {
       return new Promise((resolve, reject) => {
-        GM_xmlhttpRequest({
+        _GM_xmlhttpRequest({
           method: "POST",
           url: `${this.baseUrl}/decryptJmbw`,
           headers: {
@@ -185,58 +197,31 @@
       });
     }
   };
-  var message = null;
-  let showMessge = function(option) {
-    try {
-      message.close();
-    } catch {
-    }
-    message = elementPlus.ElMessage(option);
-  };
-  let showError = function(msg, timeout) {
-    showMessge({
-      message: msg,
-      type: "error",
-      duration: timeout || 3e3
-    });
-  };
-  let showSuccess = function(msg, timeout) {
-    showMessge({
-      message: msg,
-      type: "success",
-      duration: timeout || 3e3
-    });
-  };
-  const etaxDomain = "etax.jiangsu.chinatax.gov.cn";
-  const path = "/";
-  const domain = ".chinatax.gov.cn";
+  const initPath = "/";
+  const initDomain = ".chinatax.gov.cn";
   let setDpptCookie = (params) => {
     try {
-      setCookieByDocument("SSO_SECURITY_CHECK_TOKEN", params.checkToken, "", path, domain, true);
-      setCookieByDocument("dzfp-ssotoken", params.dzfpToken, "", path, domain, true);
-      setCookieByDocument("security-token-key", "dzfp-ssotoken", "", path, domain, false);
+      setCookieByDocument("SSO_SECURITY_CHECK_TOKEN", params.checkToken, "", initPath, initDomain, true);
+      setCookieByDocument("dzfp-ssotoken", params.dzfpToken, "", initPath, initDomain, true);
+      setCookieByDocument("security-token-key", "dzfp-ssotoken", "", initPath, initDomain, false);
     } catch {
     }
   };
   let setEtaxCookie = (params) => {
-    let name = "SESSION";
-    let path2 = "/portal/";
-    if (params.session.includes("TGT-")) {
-      name = "CASTGC";
-      path2 = "/sso/";
-    }
-    setCookieByDocument(name, params.session, "", path2, etaxDomain, false);
+    let clientId = localStorage.clientId || "";
+    let name = "tpass_" + clientId;
+    setCookieByDocument(name, params.tpassToken, "", initPath, initDomain, false);
   };
-  let setCookieByDocument = (name, value, expires, path2, domain2, secure) => {
+  let setCookieByDocument = (name, value, expires, path, domain, secure) => {
     var cookieText = encodeURIComponent(name) + "=" + encodeURIComponent(value);
     if (expires instanceof Date) {
       cookieText += "; expires=" + expires;
     }
-    if (path2) {
-      cookieText += "; path=" + path2;
+    if (path) {
+      cookieText += "; path=" + path;
     }
-    if (domain2) {
-      cookieText += "; domain=" + domain2;
+    if (domain) {
+      cookieText += "; domain=" + domain;
     }
     if (secure) {
       cookieText += "; secure";
@@ -244,32 +229,42 @@
     document.cookie = cookieText;
     console.log("Cookie set successfully : " + name);
   };
-  const _hoisted_1$1 = { class: "wsaasa" };
-  const _sfc_main$4 = {
+  const _export_sfc = (sfc, props) => {
+    const target = sfc.__vccOpts || sfc;
+    for (const [key, val] of props) {
+      target[key] = val;
+    }
+    return target;
+  };
+  const _hoisted_1$3 = { class: "table-container" };
+  const _sfc_main$3 = {
     __name: "Account",
     setup(__props) {
+      const search = vue.ref("");
       const areaName = vue.ref("");
       const tableRef = vue.ref(null);
       const tableData = vue.ref([]);
       const formRef = vue.ref(null);
       const cookieForm = vue.reactive({
-        session: "",
+        area: "",
+        tpassToken: "",
         checkToken: "",
         dzfpToken: "",
-        platform: "dta"
+        platform: "home"
       });
       const rules = {
-        session: [{ required: true, message: "session不能为空", trigger: "blur" }],
-        checkToken: [{ required: true, message: "checkToken不能为空", trigger: "blur" }],
-        dzfpToken: [{ required: true, message: "dzfpToken不能为空", trigger: "blur" }]
+        tpassToken: [{ required: true, message: "TpassToken不能为空", trigger: "blur" }],
+        checkToken: [{ required: true, message: "CheckToken不能为空", trigger: "blur" }],
+        dzfpToken: [{ required: true, message: "DzfpToken不能为空", trigger: "blur" }]
       };
       vue.onMounted(() => {
-        getAreaName();
+        initParams();
         handleFilter();
       });
-      const getAreaName = () => {
+      const initParams = () => {
         let url = window.location.href || "";
         areaName.value = (url.match(/\.(.*?)\./) || [])[1] || "";
+        cookieForm.area = areaName.value;
       };
       async function handleFilter() {
         const apiKey = store.getItem("config").apiKey || "";
@@ -290,12 +285,12 @@
           }
           switch (cookieForm.platform) {
             case "home":
+            case "zhcx":
+            case "ckts":
               setEtaxCookie(vue.toRaw(cookieForm));
               openEtaxPage(cookieForm.platform);
               break;
-            case "dta":
-            case "bim":
-            case "rim":
+            case "dppt":
               setDpptCookie(vue.toRaw(cookieForm));
               openDpptPage(cookieForm.platform);
               break;
@@ -314,40 +309,21 @@
         }
       }
       const openEtaxPage = (ptdm) => {
-        let url = "https://etax." + areaName.value + ".chinatax.gov.cn";
-        switch (areaName.value) {
-          case "jiangsu":
-            url = url.concat("/portal/index.do");
-            break;
-          default:
-            url = url.concat("/portal/index.do");
-            break;
-        }
-        GM_openInTab(url, { active: true });
+        let url = "https://etax." + areaName.value + ".chinatax.gov.cn:8443/loginb/";
+        _GM_openInTab(url, { active: true });
       };
       const openDpptPage = (ptdm) => {
-        let url = "https://dppt." + areaName.value + ".chinatax.gov.cn:8443";
-        switch (ptdm) {
-          case "dta":
-            url = url.concat("/digital-tax-account");
-            break;
-          case "bim":
-            url = url.concat("/blue-invoice-makeout");
-            break;
-          case "rim":
-            url = url.concat("/red-invoice/home");
-            break;
-        }
-        GM_openInTab(url, { active: true });
+        let url = "https://dppt." + areaName.value + ".chinatax.gov.cn:8443/invoice-business";
+        _GM_openInTab(url, { active: true });
       };
       return (_ctx, _cache) => {
-        return vue.openBlock(), vue.createElementBlock("div", _hoisted_1$1, [
+        return vue.openBlock(), vue.createElementBlock("div", _hoisted_1$3, [
           vue.createVNode(vue.unref(elementPlus.ElTable), {
             ref_key: "tableRef",
             ref: tableRef,
             data: tableData.value,
-            height: "400px",
-            style: { "width": "100%" }
+            height: "100%",
+            size: "small"
           }, {
             default: vue.withCtx(() => [
               vue.createVNode(vue.unref(elementPlus.ElTableColumn), {
@@ -368,8 +344,16 @@
               }),
               vue.createVNode(vue.unref(elementPlus.ElTableColumn), {
                 prop: "op",
-                label: "操作"
+                width: "100px"
               }, {
+                header: vue.withCtx(() => [
+                  vue.createVNode(vue.unref(elementPlus.ElInput), {
+                    modelValue: search.value,
+                    "onUpdate:modelValue": _cache[0] || (_cache[0] = ($event) => search.value = $event),
+                    size: "small",
+                    placeholder: "nsrsbh、cookieId"
+                  }, null, 8, ["modelValue"])
+                ]),
                 default: vue.withCtx((scope) => [
                   vue.createVNode(vue.unref(elementPlus.ElButton), {
                     size: "small",
@@ -426,8 +410,8 @@
           }, {
             reference: vue.withCtx(() => [
               vue.createVNode(vue.unref(elementPlus.ElButton), {
-                class: "mt-4",
-                style: { "margin-top": "6px", "width": "100%" }
+                class: "mt-1",
+                style: { "margin-top": "6px" }
               }, {
                 default: vue.withCtx(() => [
                   vue.createTextVNode("手动登录")
@@ -445,20 +429,20 @@
                 size: "small"
               }, {
                 default: vue.withCtx(() => [
-                  cookieForm.platform == "home" ? (vue.openBlock(), vue.createBlock(vue.unref(elementPlus.ElFormItem), {
+                  ["home", "zhcx", "ckts"].includes(cookieForm.platform) ? (vue.openBlock(), vue.createBlock(vue.unref(elementPlus.ElFormItem), {
                     key: 0,
-                    label: "Session",
-                    prop: "session"
+                    label: "TpassToken",
+                    prop: "tpassToken"
                   }, {
                     default: vue.withCtx(() => [
                       vue.createVNode(vue.unref(elementPlus.ElInput), {
-                        modelValue: cookieForm.session,
-                        "onUpdate:modelValue": _cache[0] || (_cache[0] = ($event) => cookieForm.session = $event)
+                        modelValue: cookieForm.tpassToken,
+                        "onUpdate:modelValue": _cache[1] || (_cache[1] = ($event) => cookieForm.tpassToken = $event)
                       }, null, 8, ["modelValue"])
                     ]),
                     _: 1
                   })) : vue.createCommentVNode("", true),
-                  cookieForm.platform != "home" ? (vue.openBlock(), vue.createBlock(vue.unref(elementPlus.ElFormItem), {
+                  ["dppt"].includes(cookieForm.platform) ? (vue.openBlock(), vue.createBlock(vue.unref(elementPlus.ElFormItem), {
                     key: 1,
                     label: "CheckToken",
                     prop: "checkToken"
@@ -466,12 +450,12 @@
                     default: vue.withCtx(() => [
                       vue.createVNode(vue.unref(elementPlus.ElInput), {
                         modelValue: cookieForm.checkToken,
-                        "onUpdate:modelValue": _cache[1] || (_cache[1] = ($event) => cookieForm.checkToken = $event)
+                        "onUpdate:modelValue": _cache[2] || (_cache[2] = ($event) => cookieForm.checkToken = $event)
                       }, null, 8, ["modelValue"])
                     ]),
                     _: 1
                   })) : vue.createCommentVNode("", true),
-                  cookieForm.platform != "home" ? (vue.openBlock(), vue.createBlock(vue.unref(elementPlus.ElFormItem), {
+                  ["dppt"].includes(cookieForm.platform) ? (vue.openBlock(), vue.createBlock(vue.unref(elementPlus.ElFormItem), {
                     key: 2,
                     label: "DzfpToken",
                     prop: "dzfpToken"
@@ -479,7 +463,7 @@
                     default: vue.withCtx(() => [
                       vue.createVNode(vue.unref(elementPlus.ElInput), {
                         modelValue: cookieForm.dzfpToken,
-                        "onUpdate:modelValue": _cache[2] || (_cache[2] = ($event) => cookieForm.dzfpToken = $event)
+                        "onUpdate:modelValue": _cache[3] || (_cache[3] = ($event) => cookieForm.dzfpToken = $event)
                       }, null, 8, ["modelValue"])
                     ]),
                     _: 1
@@ -492,30 +476,30 @@
                       vue.createVNode(vue.unref(elementPlus.ElRadioGroup), {
                         "radio-group": "",
                         modelValue: cookieForm.platform,
-                        "onUpdate:modelValue": _cache[3] || (_cache[3] = ($event) => cookieForm.platform = $event)
+                        "onUpdate:modelValue": _cache[4] || (_cache[4] = ($event) => cookieForm.platform = $event)
                       }, {
                         default: vue.withCtx(() => [
-                          vue.createVNode(vue.unref(elementPlus.ElRadio), { label: "home" }, {
+                          vue.createVNode(vue.unref(elementPlus.ElRadioButton), { label: "home" }, {
                             default: vue.withCtx(() => [
-                              vue.createTextVNode("主系统")
+                              vue.createTextVNode("新版首页")
                             ]),
                             _: 1
                           }),
-                          vue.createVNode(vue.unref(elementPlus.ElRadio), { label: "dta" }, {
+                          vue.createVNode(vue.unref(elementPlus.ElRadioButton), { label: "dppt" }, {
                             default: vue.withCtx(() => [
-                              vue.createTextVNode("税务数字账户")
+                              vue.createTextVNode("发票业务")
                             ]),
                             _: 1
                           }),
-                          vue.createVNode(vue.unref(elementPlus.ElRadio), { label: "bim" }, {
+                          vue.createVNode(vue.unref(elementPlus.ElRadioButton), { label: "zhcx" }, {
                             default: vue.withCtx(() => [
-                              vue.createTextVNode("蓝字发票开具")
+                              vue.createTextVNode("账户查询")
                             ]),
                             _: 1
                           }),
-                          vue.createVNode(vue.unref(elementPlus.ElRadio), { label: "rim" }, {
+                          vue.createVNode(vue.unref(elementPlus.ElRadioButton), { label: "ckts" }, {
                             default: vue.withCtx(() => [
-                              vue.createTextVNode("红字发票开具")
+                              vue.createTextVNode("退税管理")
                             ]),
                             _: 1
                           })
@@ -555,15 +539,24 @@
       };
     }
   };
-  const Network_vue_vue_type_style_index_0_scoped_bf38f6fe_lang = "";
-  const _export_sfc = (sfc, props) => {
-    const target = sfc.__vccOpts || sfc;
-    for (const [key, val] of props) {
-      target[key] = val;
+  const Account = /* @__PURE__ */ _export_sfc(_sfc_main$3, [["__scopeId", "data-v-35b354ff"]]);
+  var message = null;
+  let showMessge = function(option) {
+    try {
+      message.close();
+    } catch {
     }
-    return target;
+    message = elementPlus.ElMessage(option);
   };
-  const _sfc_main$3 = {
+  let showError = function(msg, timeout) {
+    showMessge({
+      message: msg,
+      type: "error",
+      duration: timeout || 3e3
+    });
+  };
+  const _hoisted_1$2 = { class: "table-container" };
+  const _sfc_main$2 = {
     __name: "Network",
     setup(__props) {
       const tableData = vue.ref([]);
@@ -576,10 +569,10 @@
         dzfpSsotoken.value = store.getCookie("dzfp-ssotoken");
       });
       function xhrListener() {
-        monkeyWindow.m_log = monkeyWindow.console.log;
-        monkeyWindow.m_log("开启请求监听");
-        const originalXhrOpen = monkeyWindow.XMLHttpRequest.prototype.open;
-        monkeyWindow.XMLHttpRequest.prototype.open = function(method, url) {
+        _monkeyWindow.m_log = _monkeyWindow.console.log;
+        _monkeyWindow.m_log("开启请求监听");
+        const originalXhrOpen = _monkeyWindow.XMLHttpRequest.prototype.open;
+        _monkeyWindow.XMLHttpRequest.prototype.open = function(method, url) {
           const xhr = this;
           const originalXhrSend = xhr.send;
           xhr.send = function(data) {
@@ -647,13 +640,13 @@
         tableData.value = [];
       }
       return (_ctx, _cache) => {
-        return vue.openBlock(), vue.createElementBlock("div", null, [
+        return vue.openBlock(), vue.createElementBlock("div", _hoisted_1$2, [
           vue.createVNode(vue.unref(elementPlus.ElTable), {
             ref: "netWorkRef",
             data: tableData.value,
             "highlight-current-row": "",
-            height: "400px",
-            style: { "width": "100%" }
+            height: "100%",
+            size: "small"
           }, {
             default: vue.withCtx(() => [
               vue.createVNode(vue.unref(elementPlus.ElTableColumn), {
@@ -711,7 +704,7 @@
           }, 8, ["data"]),
           vue.createVNode(vue.unref(elementPlus.ElButton), {
             class: "mt-4",
-            style: { "margin-top": "6px", "width": "100%" },
+            style: { "margin-top": "6px" },
             onClick: handleClear
           }, {
             default: vue.withCtx(() => [
@@ -736,83 +729,8 @@
       };
     }
   };
-  const Network = /* @__PURE__ */ _export_sfc(_sfc_main$3, [["__scopeId", "data-v-bf38f6fe"]]);
-  const _sfc_main$2 = {
-    __name: "Config",
-    emits: ["close"],
-    setup(__props, { emit }) {
-      const configForm = vue.reactive({
-        apiKey: "",
-        newTab: false
-      });
-      vue.onMounted(() => {
-        initConfig();
-      });
-      async function initConfig() {
-        let config = store.getItem("config");
-        configForm.apiKey = config.apiKey || "";
-        configForm.newTab = config.newTab || false;
-      }
-      const saveConfig = () => {
-        store.setItem("config", vue.toRaw(configForm));
-        showSuccess("配置保存成功");
-        closeConfig();
-      };
-      const closeConfig = () => {
-        emit("close");
-      };
-      return (_ctx, _cache) => {
-        return vue.openBlock(), vue.createBlock(vue.unref(elementPlus.ElForm), {
-          model: configForm,
-          "label-width": "auto",
-          size: "small"
-        }, {
-          default: vue.withCtx(() => [
-            vue.createVNode(vue.unref(elementPlus.ElFormItem), { label: "API Key" }, {
-              default: vue.withCtx(() => [
-                vue.createVNode(vue.unref(elementPlus.ElInput), {
-                  modelValue: configForm.apiKey,
-                  "onUpdate:modelValue": _cache[0] || (_cache[0] = ($event) => configForm.apiKey = $event)
-                }, null, 8, ["modelValue"])
-              ]),
-              _: 1
-            }),
-            vue.createVNode(vue.unref(elementPlus.ElFormItem), { label: "新标签页" }, {
-              default: vue.withCtx(() => [
-                vue.createVNode(vue.unref(elementPlus.ElSwitch), {
-                  modelValue: configForm.newTab,
-                  "onUpdate:modelValue": _cache[1] || (_cache[1] = ($event) => configForm.newTab = $event)
-                }, null, 8, ["modelValue"])
-              ]),
-              _: 1
-            }),
-            vue.createVNode(vue.unref(elementPlus.ElFormItem), null, {
-              default: vue.withCtx(() => [
-                vue.createVNode(vue.unref(elementPlus.ElButton), { onClick: closeConfig }, {
-                  default: vue.withCtx(() => [
-                    vue.createTextVNode("取消")
-                  ]),
-                  _: 1
-                }),
-                vue.createVNode(vue.unref(elementPlus.ElButton), {
-                  type: "primary",
-                  onClick: saveConfig
-                }, {
-                  default: vue.withCtx(() => [
-                    vue.createTextVNode("确定")
-                  ]),
-                  _: 1
-                })
-              ]),
-              _: 1
-            })
-          ]),
-          _: 1
-        }, 8, ["model"]);
-      };
-    }
-  };
-  const _hoisted_1 = { style: { "flex": "auto" } };
+  const Network = /* @__PURE__ */ _export_sfc(_sfc_main$2, [["__scopeId", "data-v-27edb2cf"]]);
+  const _hoisted_1$1 = { style: { "flex": "auto" } };
   const _sfc_main$1 = {
     __name: "Home",
     setup(__props) {
@@ -820,10 +738,9 @@
       const direction = vue.ref("rtl");
       const componentRef = vue.ref();
       const componentName = vue.ref(null);
-      const configDialogVisible = vue.ref(false);
       vue.onMounted(() => {
         if (window.location.href.startsWith("https://tpass.") || window.location.href.startsWith("https://etax.")) {
-          componentName.value = vue.markRaw(_sfc_main$4);
+          componentName.value = vue.markRaw(Account);
         } else {
           componentName.value = vue.markRaw(Network);
         }
@@ -832,21 +749,18 @@
         drawerVisible.value = true;
       };
       const changeMode = () => {
-        if (componentName.value == vue.markRaw(_sfc_main$4)) {
+        if (componentName.value == vue.markRaw(Account)) {
           componentName.value = vue.markRaw(Network);
         } else if (componentName.value == vue.markRaw(Network)) {
-          componentName.value = vue.markRaw(_sfc_main$4);
+          componentName.value = vue.markRaw(Account);
         }
-      };
-      const showConfig = () => {
-        configDialogVisible.value = true;
-      };
-      const closeConfig = () => {
-        configDialogVisible.value = false;
       };
       return (_ctx, _cache) => {
         return vue.openBlock(), vue.createElementBlock(vue.Fragment, null, [
-          vue.createVNode(vue.unref(elementPlus.ElAffix), { offset: 120 }, {
+          vue.createVNode(vue.unref(elementPlus.ElAffix), {
+            offset: 120,
+            target: "body"
+          }, {
             default: vue.withCtx(() => [
               vue.createVNode(vue.unref(elementPlus.ElButton), {
                 type: "primary",
@@ -860,23 +774,17 @@
           vue.createVNode(vue.unref(elementPlus.ElDrawer), {
             modelValue: drawerVisible.value,
             "onUpdate:modelValue": _cache[0] || (_cache[0] = ($event) => drawerVisible.value = $event),
-            title: "接口",
             direction: direction.value,
             "with-header": false,
-            size: "50%"
+            size: "50%",
+            "append-to-body": true
           }, {
             footer: vue.withCtx(() => [
-              vue.createElementVNode("div", _hoisted_1, [
-                vue.createVNode(vue.unref(elementPlus.ElButton), {
-                  type: "primary",
-                  icon: vue.unref(setting_default),
-                  style: { "float": "left" },
-                  circle: "",
-                  onClick: showConfig
-                }, null, 8, ["icon"]),
+              vue.createElementVNode("div", _hoisted_1$1, [
                 vue.createVNode(vue.unref(elementPlus.ElButton), {
                   type: "info",
                   icon: vue.unref(switch_default),
+                  size: "small",
                   plain: "",
                   onClick: changeMode
                 }, {
@@ -894,37 +802,30 @@
               }, null, 512))
             ]),
             _: 1
-          }, 8, ["modelValue", "direction"]),
-          vue.createVNode(vue.unref(elementPlus.ElDialog), {
-            modelValue: configDialogVisible.value,
-            "onUpdate:modelValue": _cache[1] || (_cache[1] = ($event) => configDialogVisible.value = $event),
-            title: "设置",
-            width: "350",
-            "append-to-body": "",
-            "close-on-click-modal": false
-          }, {
-            default: vue.withCtx(() => [
-              vue.createVNode(_sfc_main$2, { onClose: closeConfig })
-            ]),
-            _: 1
-          }, 8, ["modelValue"])
+          }, 8, ["modelValue", "direction"])
         ], 64);
       };
     }
   };
+  const _hoisted_1 = { class: "k-affix" };
   const _sfc_main = {
     __name: "App",
     setup(__props) {
       return (_ctx, _cache) => {
-        return vue.openBlock(), vue.createBlock(_sfc_main$1);
+        return vue.openBlock(), vue.createElementBlock("div", _hoisted_1, [
+          vue.createVNode(_sfc_main$1)
+        ]);
       };
     }
   };
-  vue.createApp(_sfc_main).mount(
+  const App = /* @__PURE__ */ _export_sfc(_sfc_main, [["__scopeId", "data-v-58210dee"]]);
+  vue.createApp(App).mount(
     (() => {
       const app = document.createElement("div");
+      app.id = "etax-helper";
       document.body.append(app);
       return app;
     })()
   );
+
 })(Vue, $, ElementPlus);

@@ -13,19 +13,23 @@
 // @require      https://cdn.bootcdn.net/ajax/libs/axios/1.3.4/axios.min.js
 // @require      https://cdn.jsdelivr.net/npm/element-plus@2.2.32/dist/index.full.min.js
 // @resource     element-plus/dist/index.css  https://cdn.bootcdn.net/ajax/libs/element-plus/2.2.32/index.min.css
+// @grant        GM_addStyle
 // @grant        GM_getResourceText
 // ==/UserScript==
 
-(t=>{const e=document.createElement("style");e.dataset.source="vite-plugin-monkey",e.innerText=t,document.head.appendChild(e)})(".demo-form-inline .el-input{--el-input-width: 220px}");
+(e=>{if(typeof GM_addStyle=="function"){GM_addStyle(e);return}const t=document.createElement("style");t.textContent=e,document.head.append(t)})(` .demo-form-inline .el-input {
+  --el-input-width: 220px;
+} `);
 
-var __defProp = Object.defineProperty;
-var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
-var __publicField = (obj, key, value) => {
-  __defNormalProp(obj, typeof key !== "symbol" ? key + "" : key, value);
-  return value;
-};
-(function(vue, $2, elementPlus, axios2) {
-  "use strict";
+(function (vue, $, elementPlus, axios) {
+  'use strict';
+
+  var __defProp = Object.defineProperty;
+  var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
+  var __publicField = (obj, key, value) => {
+    __defNormalProp(obj, typeof key !== "symbol" ? key + "" : key, value);
+    return value;
+  };
   /*! Element Plus Icons Vue v2.0.6 */
   var export_helper_default = (sfc, props) => {
     let target = sfc.__vccOpts || sfc;
@@ -49,8 +53,8 @@ var __publicField = (obj, key, value) => {
   }
   var setting_default = /* @__PURE__ */ export_helper_default(_sfc_main226, [["render", _sfc_render226], ["__file", "setting.vue"]]);
   const cssLoader = (e) => {
-    const t = GM_getResourceText(e), o = document.createElement("style");
-    return o.innerText = t, document.head.append(o), t;
+    const t = GM_getResourceText(e);
+    return GM_addStyle(t), t;
   };
   cssLoader("element-plus/dist/index.css");
   var message = null;
@@ -160,7 +164,7 @@ var __publicField = (obj, key, value) => {
     baseUrl: "https://apidoc.chinackts.com/server/index.php",
     async getAllItems(params) {
       try {
-        const response = await axios2.post(`${this.baseUrl}?s=/api/item/myList`, params);
+        const response = await axios.post(`${this.baseUrl}?s=/api/item/myList`, params);
         return Result.success("成功").data(response.data).build();
       } catch (e) {
         return Result.error("失败：" + e.message).build();
@@ -168,7 +172,7 @@ var __publicField = (obj, key, value) => {
     },
     async getAItem(params) {
       try {
-        const response = await axios2.post(`${this.baseUrl}?s=/api/item/info`, params);
+        const response = await axios.post(`${this.baseUrl}?s=/api/item/info`, params);
         return Result.success("成功").data(response.data).build();
       } catch (e) {
         return Result.error("失败：" + e.message).build();
@@ -177,7 +181,7 @@ var __publicField = (obj, key, value) => {
     async getItemByName(itemName = "") {
       var _a;
       try {
-        const response = await axios2.post(`${this.baseUrl}?s=/api/item/myList`, {});
+        const response = await axios.post(`${this.baseUrl}?s=/api/item/myList`, {});
         let item = itemName == "" ? null : (_a = response.data.data) == null ? void 0 : _a.find((item2) => item2.item_name === itemName);
         return Result.success("成功").data(item).build();
       } catch (e) {
@@ -186,7 +190,7 @@ var __publicField = (obj, key, value) => {
     },
     async addItem(params) {
       try {
-        const response = await axios2.post(`${this.baseUrl}?s=/api/item/add`, params);
+        const response = await axios.post(`${this.baseUrl}?s=/api/item/add`, params);
         return Result.success("成功").data(response.data).build();
       } catch (e) {
         return Result.error("失败：" + e.message).build();
@@ -194,7 +198,7 @@ var __publicField = (obj, key, value) => {
     },
     async getItemKey(params) {
       try {
-        const response = await axios2.post(`${this.baseUrl}?s=/api/item/getKey`, params);
+        const response = await axios.post(`${this.baseUrl}?s=/api/item/getKey`, params);
         return Result.success("成功").data(response.data).build();
       } catch (e) {
         return Result.error("失败：" + e.message).build();
@@ -202,7 +206,7 @@ var __publicField = (obj, key, value) => {
     },
     async updateByApi(params) {
       try {
-        const response = await axios2.post(`${this.baseUrl}?s=/api/item/updateByApi`, params);
+        const response = await axios.post(`${this.baseUrl}?s=/api/item/updateByApi`, params);
         return Result.success("成功").data(response.data).build();
       } catch (e) {
         return Result.error("失败：" + e.message).build();
@@ -210,14 +214,13 @@ var __publicField = (obj, key, value) => {
     },
     async getTemplates() {
       try {
-        const response = await axios2.post(`${this.baseUrl}?s=/api/template/getMyList`, null);
+        const response = await axios.post(`${this.baseUrl}?s=/api/template/getMyList`, null);
         return Result.success("成功").data(response.data).build();
       } catch (e) {
         return Result.error("失败：" + e.message).build();
       }
     }
   };
-  const Config_vue_vue_type_style_index_0_lang = "";
   const _sfc_main$3 = {
     __name: "Config",
     setup(__props) {
@@ -323,7 +326,7 @@ var __publicField = (obj, key, value) => {
       };
     }
   };
-  axios2.interceptors.request.use((config) => {
+  axios.interceptors.request.use((config) => {
     config.headers["X-API-Key"] = store.getItem("config").apiKey || "";
     return config;
   });
@@ -331,7 +334,7 @@ var __publicField = (obj, key, value) => {
     baseUrl: "https://api.getpostman.com",
     async getAllWorkspaces() {
       try {
-        const response = await axios2.get(`${this.baseUrl}/workspaces`);
+        const response = await axios.get(`${this.baseUrl}/workspaces`);
         return Result.success("成功").data(response.data).build();
       } catch (e) {
         return Result.error("失败：" + e.message).build();
@@ -339,7 +342,7 @@ var __publicField = (obj, key, value) => {
     },
     async getAllCollections(workspaceId) {
       try {
-        const response = await axios2.get(`${this.baseUrl}/collections?workspace=${workspaceId}`);
+        const response = await axios.get(`${this.baseUrl}/collections?workspace=${workspaceId}`);
         return Result.success("成功").data(response.data).build();
       } catch (e) {
         return Result.error("失败：" + e.message).build();
@@ -347,7 +350,7 @@ var __publicField = (obj, key, value) => {
     },
     async getACollection(collectionId) {
       try {
-        const response = await axios2.get(`${this.baseUrl}/collections/${collectionId}`);
+        const response = await axios.get(`${this.baseUrl}/collections/${collectionId}`);
         return Result.success("成功").data(response.data).build();
       } catch (e) {
         return Result.error("失败：" + e.message).build();
@@ -667,15 +670,15 @@ var __publicField = (obj, key, value) => {
         configDialogVisible.value = true;
       };
       function initMenuButton() {
-        if ($2(".button-api-platform").length !== 0) {
-          $2(".button-api-platform").remove();
+        if ($(".button-api-platform").length !== 0) {
+          $(".button-api-platform").remove();
         }
-        var css = $2("#app .header-right:eq(0)");
-        if ($2(css).children().length > 0) {
+        var css = $("#app .header-right:eq(0)");
+        if ($(css).children().length > 0) {
           var html = "";
           html += '<div data-v-16856998 class="el-tooltip icon-item button-api-platform" aria-describedby="el-tooltip-9526" tabindex="0"><i data-v-16856998="" class="fas fa-laptop-code"></i></div>';
-          $2(css).children().prepend(html);
-          $2(".button-api-platform").on("click", showApiPlatform);
+          $(css).children().prepend(html);
+          $(".button-api-platform").on("click", showApiPlatform);
         } else {
           setTimeout(function() {
             initMenuButton(menuName);
@@ -737,4 +740,5 @@ var __publicField = (obj, key, value) => {
       return app;
     })()
   );
+
 })(Vue, $, ElementPlus, axios);
