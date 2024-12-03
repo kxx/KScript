@@ -14,7 +14,7 @@ export default defineConfig({
         name: "etax助手",
         version: loadEnv("", process.cwd(), '').VITE_VERSION,
         license: 'MIT',
-        description: '支持etax参数解密',
+        description: 'etax小助手',
         namespace: 'https://github.com/kxx/etax-helper',
         author: "kxx",
         match: ['https://*.chinatax.gov.cn/*'
