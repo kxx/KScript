@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         showdoc助手
-// @namespace    https://github.com/kxx/showdoc-helper
+// @namespace    https://github.com/kxx/k-script
 // @version      1.0.0
 // @author       kxx
 // @description  支持同步postman接口到showdoc

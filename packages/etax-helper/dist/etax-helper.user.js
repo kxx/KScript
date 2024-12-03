@@ -1,9 +1,9 @@
 // ==UserScript==
 // @name         etax助手
-// @namespace    https://github.com/kxx/etax-helper
-// @version      1.0.0
+// @namespace    https://github.com/kxx/k-script
+// @version      1.1.0
 // @author       kxx
-// @description  支持etax参数解密
+// @description  etax小助手
 // @license      MIT
 // @match        https://*.chinatax.gov.cn/*
 // @match        https://*.chinatax.gov.cn:8443/*
