@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         etax助手
 // @namespace    https://github.com/kxx/k-script
-// @version      1.1.0
+// @version      1.1.1
 // @author       kxx
 // @description  etax小助手
 // @license      MIT
