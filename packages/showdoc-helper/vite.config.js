@@ -17,7 +17,7 @@ export default defineConfig({
         license: 'MIT',
         description: '支持同步postman接口到showdoc',
         icon: 'https://img.alicdn.com/imgextra/i1/O1CN01JDQCi21Dc8EfbRwvF_!!6000000000236-73-tps-64-64.ico',
-        namespace: 'https://github.com/kxx/showdoc-helper',
+        namespace: 'https://github.com/kxx/k-script',
         author: "kxx",
         match: ['https://apidoc.chinackts.com/*'],
       },
