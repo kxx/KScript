@@ -23,21 +23,21 @@
                 <ElButton class="mt-1" style="margin-top: 6px;">手动登录</ElButton>
             </template>
             <ElForm ref="formRef" :model="cookieForm" :rules="rules" label-width="100px" size="small">
-                <ElFormItem v-if="cookieForm.platform == 'home'" label="Session" prop="session">
-                    <ElInput v-model="cookieForm.session"/>
+                <ElFormItem v-if="['home','zhcx','ckts'].includes(cookieForm.platform)" label="TpassToken" prop="tpassToken">
+                    <ElInput v-model="cookieForm.tpassToken"/>
                 </ElFormItem>
-                <ElFormItem v-if="cookieForm.platform != 'home'" label="CheckToken" prop="checkToken">
+                <ElFormItem v-if="['dppt'].includes(cookieForm.platform)" label="CheckToken" prop="checkToken">
                     <ElInput v-model="cookieForm.checkToken"/>
                 </ElFormItem>
-                <ElFormItem v-if="cookieForm.platform != 'home'" label="DzfpToken" prop="dzfpToken">
+                <ElFormItem v-if="['dppt'].includes(cookieForm.platform)" label="DzfpToken" prop="dzfpToken">
                     <ElInput v-model="cookieForm.dzfpToken"/>
                 </ElFormItem>
                 <ElFormItem label="Platform" prop="platform">
                     <ElRadioGroup radio-group v-model="cookieForm.platform">
-                        <ElRadio label="home">主系统</ElRadio>
-                        <ElRadio label="dta">税务数字账户</ElRadio>
-                        <ElRadio label="bim">蓝字发票开具</ElRadio>
-                        <ElRadio label="rim">红字发票开具</ElRadio>
+                        <ElRadioButton label="home">新版首页</ElRadioButton>
+                        <ElRadioButton label="dppt">发票业务</ElRadioButton>
+                        <ElRadioButton label="zhcx">账户查询</ElRadioButton>
+                        <ElRadioButton label="ckts">退税管理</ElRadioButton>
                     </ElRadioGroup>
                 </ElFormItem>
                 <ElFormItem>
@@ -53,7 +53,7 @@
 import { GM_openInTab } from '$';
 import { ref, onMounted, reactive, toRaw } from "vue";
 //import 'element-plus/dist/index.css'
-import { ElForm, ElFormItem, ElInput, ElButton, ElTable, ElTableColumn, ElPopover, ElRadio, ElRadioGroup } from 'element-plus'
+import { ElForm, ElFormItem, ElInput, ElButton, ElTable, ElTableColumn, ElPopover, ElRadioGroup, ElRadioButton } from 'element-plus'
 import supportService from '../service/support-service'
 //import { showSuccess, showError } from "../../utils/notice";
 import { setEtaxCookie, setDpptCookie } from "../../utils/cookie";
@@ -72,27 +72,27 @@ const formRef = ref(null)
 
 const cookieForm = reactive({
     area: '',
-    session: '',
+    tpassToken: '',
     checkToken: '',
     dzfpToken: '',
-    platform: 'dta'
+    platform: 'home'
 })
 
 const rules = {
-    session: [{ required: true, message: "session不能为空", trigger: "blur" }],
-    checkToken: [{ required: true, message: "checkToken不能为空", trigger: "blur" }],
-    dzfpToken: [{ required: true, message: "dzfpToken不能为空", trigger: "blur" }],
+    tpassToken: [{ required: true, message: "TpassToken不能为空", trigger: "blur" }],
+    checkToken: [{ required: true, message: "CheckToken不能为空", trigger: "blur" }],
+    dzfpToken: [{ required: true, message: "DzfpToken不能为空", trigger: "blur" }],
 }
 
 
 onMounted(() => {
-    getAreaName()
+    initParams()
     handleFilter()
 })
 
-const getAreaName = () => {
-    let url = window.location.href || ''
-    areaName.value = (url.match(/\.(.*?)\./) || [])[1] || ''
+const initParams = () => {
+    let url = window.location.href || '';
+    areaName.value = (url.match(/\.(.*?)\./) || [])[1] || '';
     cookieForm.area = areaName.value
 }
 
@@ -118,12 +118,12 @@ async function onSubmit() {
         }
         switch (cookieForm.platform) {
             case 'home':
+            case 'zhcx':
+            case 'ckts':
                 setEtaxCookie(toRaw(cookieForm))
                 openEtaxPage(cookieForm.platform);
                 break;
-            case 'dta':
-            case 'bim':
-            case 'rim':
+            case 'dppt':
                 setDpptCookie(toRaw(cookieForm))
                 openDpptPage(cookieForm.platform)
                 break;
@@ -147,43 +147,12 @@ async function handleAuth(row, ptdm) {
 
 //打开页面
 const openEtaxPage = (ptdm) => {
-    let url = 'https://etax.' + areaName.value + '.chinatax.gov.cn'
-
-    switch (areaName.value) {
-        case 'jiangsu':
-            url = url.concat('/portal/index.do')
-            break;
-        case 'shanghai':
-            url = url.concat('/wszx-web/bszm/apps/views/companyPage/desktopTax.html#/change')
-            break;
-        case 'shandong':
-            url = url.concat(':8443/loginb/')
-            break;
-        case 'qingdao':
-            url = url.concat('/portal/')
-            break;
-        default:
-            url = url.concat('/portal/index.do')
-            break;
-    }
+    let url = 'https://etax.' + areaName.value + '.chinatax.gov.cn:8443/loginb/'
     GM_openInTab(url, { active: true });
 }
 
 const openDpptPage = (ptdm) => {
-
-    let url = 'https://dppt.' + areaName.value + '.chinatax.gov.cn:8443'
-
-    switch (ptdm) {
-        case 'dta':
-            url = url.concat('/digital-tax-account')
-            break;
-        case 'bim':
-            url = url.concat('/blue-invoice-makeout')
-            break;
-        case 'rim':
-            url = url.concat('/red-invoice/home')
-            break;
-    }
+    let url = 'https://dppt.' + areaName.value + '.chinatax.gov.cn:8443/invoice-business'
     GM_openInTab(url, { active: true });
 }
 

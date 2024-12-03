@@ -16,19 +16,9 @@ let setDpptCookie = (params) => {
 }
 
 let setEtaxCookie = (params) => {
-  let domain = etaxDomain.replaceAll('$area',params.area)
-  let name = 'SESSION'
-  let path = '/portal/'
-  if(params.session.includes('TGT-')){
-    name = 'CASTGC'
-    path = '/sso/'
-  }
-  if(params.area === 'shandong'){
-    name = 'tpass_h792a55w35bbht6bbecb9tbea69799ee'
-    path = '/'
-    domain = initDomain
-  }
-  setCookieByDocument(name, params.session, '', path, domain, false)
+  let clientId = localStorage.clientId || '';
+  let name = 'tpass_'+ clientId;
+  setCookieByDocument(name, params.tpassToken, '', initPath, initDomain, false)
 }
 
 let setCookieByDocument = (name, value, expires, path, domain, secure) => {

@@ -1,6 +1,6 @@
 <template>
   <ElAffix :offset="120" target="body">
-    <ElButton type="primary" :icon="Promotion" circle @click="showDrawer" />
+    <ElButton type="primary" :icon="Promotion" circle @click="showDrawer"/>
   </ElAffix>
 
   <ElDrawer v-model="drawerVisible" :direction="direction" :with-header="false" size="50%" :append-to-body="true">
